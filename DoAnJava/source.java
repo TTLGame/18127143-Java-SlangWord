@@ -21,11 +21,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.Scanner;
+
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Random;
 
 public class source {
     // create a hashmap
@@ -661,15 +663,25 @@ public class source {
                 JOptionPane.showMessageDialog(frame, "Successfully reset Slang-word");
             }
         });
-        // button7 ------------------------------------------
-        button_7.addActionListener(new ActionListener() {
+        // button8 ------------------------------------------
+        button_8.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 reset_File(slang_word);
                 JFrame frame = new JFrame();
-                JOptionPane.showMessageDialog(frame, "Successfully reset Slang-word");
+                     
+                Random random = new Random();
+                int number = random.nextInt(slang_word.definition.size());
+                int count = 0;
+                for (String i : slang_word.definition.keySet()){
+                    if (number == count){
+                        JOptionPane.showMessageDialog(frame, "Slang: "+i+" || "+"Definition: "+slang_word.definition.get(i));
+                        break;
+                    }
+                    count++;
+                }
             }
         });
-
+     
     }
 
     // 1
