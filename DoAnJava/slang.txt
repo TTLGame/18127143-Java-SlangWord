@@ -1,4 +1,4 @@
-BBC`British Broadcasting Corporation
+BBC`Long
 BBB`Bugging Beyond Belief
 BBE`Babe
 GLOTR`Good Luck On The Rebuild
@@ -6998,6 +6998,7 @@ SCHWAG`Low grade marijuana
 TECH`Technician| Technology
 NTSC`National Television System Committee video standard
 DOUGIE`Swagger| Dance style
+Long`long
 NTSH`Nothing To See Here
 QVC`Quality Value Convenience
 CHILL OUT`CHILL

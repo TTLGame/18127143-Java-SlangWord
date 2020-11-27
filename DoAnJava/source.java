@@ -287,16 +287,88 @@ public class source {
         });
         // button4 ------------------------------------------
         button_4.addActionListener(new ActionListener() {
-            public void route(String slang, String def){
+            JFrame frame = new JFrame("Add new Slang-word");
+            JTextField input_1 = new JTextField();
+            JTextField input_2 = new JTextField();
+
+            public void Cancel_press(JTextArea info, JButton overwrite, JButton duplicate, JButton cancel) {
+                input_1.setEditable(true);
+                input_2.setEditable(true);
+                input_1.setText("");
+                input_2.setText("");
+                frame.remove(info);
+                frame.remove(overwrite);
+                frame.remove(duplicate);
+                frame.remove(cancel);
+                frame.repaint();
+            }
+
+            public void route(String slang, String def) {
                 // duplicate
-                if(slang_word.definition.containsKey(slang)){
-                }
-                else{
-                    add_to_Slang(slang_word, slang+"`"+def);
+                JTextArea info = new JTextArea();
+                JButton overwrite = new JButton();
+                JButton duplicate = new JButton();
+                JButton cancel = new JButton();
+                //
+                overwrite.setText("Overwrite it");
+                overwrite.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
+                overwrite.setBounds(10, 300, 100, 50);
+
+                duplicate.setText("Duplicate it");
+                duplicate.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
+                duplicate.setBounds(130, 300, 100, 50);
+
+                cancel.setText("Cancel");
+                cancel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
+                cancel.setBounds(350, 300, 100, 50);
+
+                info.setText(
+                        "!Input Slang-word is already existed\nPlease choose whether you want to OVERWRITE or DUPLICATE it");
+                info.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));// font size
+                info.setForeground(Color.RED);// font color
+                info.setBounds(15, 200, 400, 50);
+                if (slang_word.definition.containsKey(slang)) {
+                    frame.add(info);
+                    frame.add(overwrite);
+                    frame.add(duplicate);
+                    frame.add(cancel);
+                    input_1.setEditable(false);
+                    input_2.setEditable(false);
+                    frame.repaint();
+                    cancel.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent ae) {
+                            Cancel_press(info, overwrite, duplicate, cancel);
+                        }
+                    });
+
+                    duplicate.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent ae) {
+                            add_to_Slang(slang_word, slang + "`" + slang_word.definition.get(slang) + "| " + def);
+                            Cancel_press(info, overwrite, duplicate, cancel);
+                            overwrite_file(slang_word, "slang.txt");
+                            JOptionPane.showMessageDialog(frame, "Successfully duplicate new Slang-word");
+                        }
+                    });
+                    overwrite.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent ae) {
+                            add_to_Slang(slang_word, slang + "`" + def);
+                            Cancel_press(info, overwrite, duplicate, cancel);
+                            overwrite_file(slang_word, "slang.txt");
+                            JOptionPane.showMessageDialog(frame, "Successfully overwrite new Slang-word");
+                        }
+                    });
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Successfully add new Slang-word");
+                    add_to_Slang(slang_word, slang + "`" + def);
+
+                    overwrite_file(slang_word, "slang.txt");
+                    input_1.setText("");
+                    input_2.setText("");
                 }
             }
+
             public void actionPerformed(ActionEvent e) {
-                JFrame frame = new JFrame("Add new Slang-word");
+
                 frame.setVisible(true); // display the screen
                 frame.setSize(500, 800);
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -304,8 +376,7 @@ public class source {
                 JLabel title = new JLabel();
                 JLabel instruction_1 = new JLabel();
                 JLabel instruction_2 = new JLabel();
-                JTextField input_1 = new JTextField();
-                JTextField input_2 = new JTextField();
+
                 frame.setLayout(null);
 
                 input_1.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));// font size
@@ -341,11 +412,12 @@ public class source {
                         if (input_1.getText().equals("") || input_2.getText().equals("")) {
                             frame.add(warning);
                             frame.repaint();
-                        }
-                        else{
+                        } else {
+
                             frame.remove(warning);
                             frame.repaint();
-                            route(input_1.getText(),input_2.getText());
+                            route(input_1.getText(), input_2.getText());
+
                         }
 
                     }
@@ -353,17 +425,18 @@ public class source {
                 input_2.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent ae) {
                         if (input_1.getText().equals("") || input_2.getText().equals("")) {
+
                             frame.add(warning);
                             frame.repaint();
-                        }
-                        else{
+                        } else {
+
                             frame.remove(warning);
                             frame.repaint();
-                            route(input_1.getText(),input_2.getText());
+                            route(input_1.getText(), input_2.getText());
+
                         }
                     }
                 });
-               
 
             }
         });
@@ -425,11 +498,6 @@ public class source {
         } catch (IOException e) {
             System.out.println("Error");
         }
-    }
-
-    // 4
-    public static void Add_new_Slang(Slang slang_word) {
-
     }
 
     // 7
