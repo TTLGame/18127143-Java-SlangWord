@@ -354,6 +354,8 @@ public class source {
                             add_to_Slang(slang_word, slang + "`" + def);
                             Cancel_press(info, overwrite, duplicate, cancel);
                             overwrite_file(slang_word, "slang.txt");
+                            slang_word.word.clear();
+                            read_File(slang_word, "slang.txt");
                             JOptionPane.showMessageDialog(frame, "Successfully overwrite new Slang-word");
                         }
                     });
@@ -425,7 +427,6 @@ public class source {
                 input_2.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent ae) {
                         if (input_1.getText().equals("") || input_2.getText().equals("")) {
-
                             frame.add(warning);
                             frame.repaint();
                         } else {
@@ -438,6 +439,111 @@ public class source {
                     }
                 });
 
+            }
+        });
+        // button5 ------------------------------------------
+        button_5.addActionListener(new ActionListener() {
+            JFrame frame = new JFrame("Edit a Slang-word");
+            JTextField input_1 = new JTextField();
+            JTextField input_2 = new JTextField();
+            public void Edit(String slang_change,JLabel warning,JLabel instruction){
+                slang_word.definition.remove(slang_change);
+                add_to_Slang(slang_word, input_1.getText()+"`"+input_2.getText());
+                overwrite_file(slang_word, "slang.txt");
+                slang_word.word.clear();
+                read_File(slang_word, "slang.txt");
+                frame.remove(warning);
+                frame.remove(instruction);
+                frame.remove(input_2);
+                input_1.setText("");
+                input_2.setText("");
+                frame.repaint();
+                JOptionPane.showMessageDialog(frame, "Successfully edit a Slang-word");
+            }
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(true); // display the screen
+                frame.setSize(500, 800);
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                //
+                JLabel title = new JLabel();
+                JLabel instruction_1 = new JLabel();
+                JLabel instruction_2 = new JLabel();
+
+                frame.setLayout(null);
+
+                input_1.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));// font size
+                input_2.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
+
+                input_1.setBounds(120, 120, 300, 30);
+                input_2.setBounds(120, 170, 300, 30);
+
+                title.setText("Edit a Slang-word");
+                title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));// font size
+                title.setForeground(Color.BLACK);// font color
+                title.setBounds(80, 0, 400, 100);
+
+                instruction_1.setText("Enter slang-word ");
+                instruction_1.setBounds(5, 120, 100, 30);
+
+                instruction_2.setText("Enter Definition: ");
+                instruction_2.setBounds(5, 170, 100, 30);
+                frame.add(input_1);
+                // frame.add(input_2);
+                frame.add(title);
+                frame.add(instruction_1);
+                // frame.add(instruction_2);
+                //
+                JLabel warning = new JLabel();
+
+                warning.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));// font size
+                warning.setForeground(Color.RED);// font color
+                warning.setBounds(15, 200, 400, 30);
+                input_1.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent ae) {
+                        String slang_change = input_1.getText();
+                        if (input_1.getText().equals("")) {
+                            warning.setText("!Please input a slang-word");
+                            frame.add(warning);
+                            frame.repaint();
+                        } else {
+                            if (slang_word.definition.get(input_1.getText()) == null) {
+                                warning.setText("Slang-word is invalid");
+                                frame.repaint();
+                            } else {
+                                frame.remove(warning);
+                                frame.add(instruction_2);
+                                frame.add(input_2);
+                                frame.repaint();
+                                input_1.addActionListener(new ActionListener(){
+                                    public void actionPerformed(ActionEvent e){
+                                        if (input_1.getText().equals("") || input_2.getText().equals("")) {
+                                            warning.setText("!Please enter both slang-word and definition");
+                                            frame.add(warning);
+                                            frame.repaint();
+                                        }
+                                        else {
+                                            Edit(slang_change, warning,instruction_2);
+                                        }
+                                    }
+                                });
+                                input_2.addActionListener(new ActionListener(){
+                                    public void actionPerformed(ActionEvent e){
+                                        if (input_1.getText().equals("") || input_2.getText().equals("")) {
+                                            warning.setText("!Please enter both slang-word and definition");
+                                            frame.add(warning);
+                                            frame.repaint();
+                                        }
+                                        else {
+                                            Edit(slang_change,warning,instruction_2);
+                                        }
+                                    }
+                                });
+                               
+                            }
+                        }
+
+                    }
+                });
             }
         });
         // button7 ------------------------------------------
