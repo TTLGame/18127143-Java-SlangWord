@@ -6,6 +6,7 @@ import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,6 +16,7 @@ import javax.swing.JScrollPane;
 //import javax.swing.border.CompoundBorder;
 //import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
+
 import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
@@ -646,7 +648,7 @@ public class source {
                                     frame.remove(instruct);
                                     frame.repaint();
                                     input_1.setEditable(true);
-                                    
+
                                 }
                             });
                         }
@@ -668,20 +670,290 @@ public class source {
             public void actionPerformed(ActionEvent e) {
                 reset_File(slang_word);
                 JFrame frame = new JFrame();
-                     
+
                 Random random = new Random();
                 int number = random.nextInt(slang_word.definition.size());
                 int count = 0;
-                for (String i : slang_word.definition.keySet()){
-                    if (number == count){
-                        JOptionPane.showMessageDialog(frame, "Slang: "+i+" || "+"Definition: "+slang_word.definition.get(i));
+                for (String i : slang_word.definition.keySet()) {
+                    if (number == count) {
+                        JOptionPane.showMessageDialog(frame,
+                                "Slang: " + i + " || " + "Definition: " + slang_word.definition.get(i));
                         break;
                     }
                     count++;
                 }
             }
         });
-     
+        // button 9 ------------------------------------------
+        button_9.addActionListener(new ActionListener() {
+            String[] choice = new String[4];
+            int pos;
+            Random random = new Random();
+            JFrame frame = new JFrame("Quiz by Slang-word");
+            JTextArea question = new JTextArea();
+            JButton ans_0 = new JButton();
+            JButton ans_1 = new JButton();
+            JButton ans_2 = new JButton();
+            JButton ans_3 = new JButton();
+
+            public void custom_button(String choice, JButton button) {
+                button.setText("<html>"+choice+"</html");
+                button.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));// font size
+                button.setForeground(Color.BLACK);
+            }
+
+            public void Create_random() {
+                pos = random.nextInt(4);
+                for (int i = 0; i < 4; i++) {
+                    choice[i] = "";
+                }
+                for (int i = 0; i < 4; i++) {
+                    int count = 0;
+                    int number = random.nextInt(slang_word.definition.size());
+                    for (String j : slang_word.definition.keySet()) {
+                        if (number == count) {
+
+                            if (i == 0) {
+                                choice[pos] = j;
+                            } else {
+                                if (choice[i] != "") {
+                                    int temp = i + 1;
+                                    if (temp == 4) {
+                                        temp = 0;
+                                    }
+                                    choice[temp] = j;
+                                } else {
+                                    choice[i] = j;
+                                }
+                            }
+                            break;
+                        }
+                        count++;
+                    }
+                }
+                custom_button(slang_word.definition.get(choice[0]), ans_0);
+                custom_button(slang_word.definition.get(choice[1]), ans_1);
+                custom_button(slang_word.definition.get(choice[2]), ans_2);
+                custom_button(slang_word.definition.get(choice[3]), ans_3);
+                question.setText("What is the definition of the slang word:\n" + choice[pos]);
+                frame.repaint();
+            }
+
+            public void Victory(JFrame frame) {
+                JOptionPane.showMessageDialog(frame, "Correct answer, you WIN!");
+                Create_random();
+            }
+
+            public void Lose(JFrame frame) {
+                JOptionPane.showMessageDialog(frame, "you LOSE, better luck next time!");
+                Create_random();
+            }
+
+            public void actionPerformed(ActionEvent e) {
+                Create_random();
+
+                ans_0.setBounds(10, 300, 180, 100);
+                ans_1.setBounds(250, 300, 180, 100);
+                ans_2.setBounds(10, 450, 180, 100);
+                ans_3.setBounds(250, 450, 180, 100);
+                question.setEditable(false);
+                frame.setVisible(true); // display the screen
+                frame.setSize(500, 800);
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.setLayout(null);
+                //
+                JLabel title = new JLabel();
+                title.setText("Quiz by Slang-word");
+                title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));// font size
+                title.setForeground(Color.BLACK);// font color
+                title.setBounds(80, 0, 400, 100);
+
+                question.setBounds(10, 100, 450, 150);
+                question.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
+                question.setForeground(Color.BLACK);
+
+                frame.add(title);
+                frame.add(question);
+                frame.add(ans_0);
+                frame.add(ans_1);
+                frame.add(ans_2);
+                frame.add(ans_3);
+                
+
+                // ans
+                ans_0.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (pos == 0) {
+                            Victory(frame);
+                        } else {
+                            Lose(frame);
+                        }
+                    }
+                });
+                ans_1.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (pos == 1) {
+                            Victory(frame);
+                        } else {
+                            Lose(frame);
+                        }
+                    }
+                });
+                ans_2.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (pos == 2) {
+                            Victory(frame);
+                        } else {
+                            Lose(frame);
+                        }
+                    }
+                });
+                ans_3.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (pos == 3) {
+                            Victory(frame);
+                        } else {
+                            Lose(frame);
+                        }
+                    }
+                });
+            }
+        });
+        // button 10 ------------------------------------------
+        button_10.addActionListener(new ActionListener() {
+            String[] choice = new String[4];
+            int pos;
+            Random random = new Random();
+            JFrame frame = new JFrame("Quiz by Slang-word");
+            JTextArea question = new JTextArea();
+            JButton ans_0 = new JButton();
+            JButton ans_1 = new JButton();
+            JButton ans_2 = new JButton();
+            JButton ans_3 = new JButton();
+
+            public void custom_button(String choice, JButton button) {
+                button.setText("<html>"+choice+"</html");
+                button.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));// font size
+                button.setForeground(Color.BLACK);
+            }
+
+            public void Create_random() {
+                pos = random.nextInt(4);
+                for (int i = 0; i < 4; i++) {
+                    choice[i] = "";
+                }
+                for (int i = 0; i < 4; i++) {
+                    int count = 0;
+                    int number = random.nextInt(slang_word.word.size());
+                    for (String j : slang_word.word.keySet()) {
+                        if (number == count) {
+
+                            if (i == 0) {
+                                choice[pos] = j;
+                            } else {
+                                if (choice[i] != "") {
+                                    int temp = i + 1;
+                                    if (temp == 4) {
+                                        temp = 0;
+                                    }
+                                    choice[temp] = j;
+                                } else {
+                                    choice[i] = j;
+                                }
+                            }
+                            break;
+                        }
+                        count++;
+                    }
+                }
+                custom_button(slang_word.word.get(choice[0]), ans_0);
+                custom_button(slang_word.word.get(choice[1]), ans_1);
+                custom_button(slang_word.word.get(choice[2]), ans_2);
+                custom_button(slang_word.word.get(choice[3]), ans_3);
+                question.setText("What is the slang-word of this definition:\n" + choice[pos]);
+                frame.repaint();
+            }
+
+            public void Victory(JFrame frame) {
+                JOptionPane.showMessageDialog(frame, "Correct answer, you WIN!");
+                Create_random();
+            }
+
+            public void Lose(JFrame frame) {
+                JOptionPane.showMessageDialog(frame, "you LOSE, better luck next time!");
+                Create_random();
+            }
+
+            public void actionPerformed(ActionEvent e) {
+                Create_random();
+
+                ans_0.setBounds(10, 300, 180, 100);
+                ans_1.setBounds(250, 300, 180, 100);
+                ans_2.setBounds(10, 450, 180, 100);
+                ans_3.setBounds(250, 450, 180, 100);
+                question.setEditable(false);
+                frame.setVisible(true); // display the screen
+                frame.setSize(500, 800);
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.setLayout(null);
+                //
+                JLabel title = new JLabel();
+                title.setText("Quiz by Slang-word");
+                title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));// font size
+                title.setForeground(Color.BLACK);// font color
+                title.setBounds(80, 0, 400, 100);
+
+                question.setBounds(10, 100, 450, 150);
+                question.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
+                question.setForeground(Color.BLACK);
+
+                frame.add(title);
+                frame.add(question);
+                frame.add(ans_0);
+                frame.add(ans_1);
+                frame.add(ans_2);
+                frame.add(ans_3);
+                
+
+                // ans
+                ans_0.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (pos == 0) {
+                            Victory(frame);
+                        } else {
+                            Lose(frame);
+                        }
+                    }
+                });
+                ans_1.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (pos == 1) {
+                            Victory(frame);
+                        } else {
+                            Lose(frame);
+                        }
+                    }
+                });
+                ans_2.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (pos == 2) {
+                            Victory(frame);
+                        } else {
+                            Lose(frame);
+                        }
+                    }
+                });
+                ans_3.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (pos == 3) {
+                            Victory(frame);
+                        } else {
+                            Lose(frame);
+                        }
+                    }
+                });
+            }
+        });
     }
 
     // 1
