@@ -1231,6 +1231,7 @@ DDI`Don't Do It
 HERB`Stupid person
 PEBCAK`Problem Exists Between Chair And Keyboard
 THTH`To Hot to Handle
+S2Games`s2
 WHEEL`Chat up| pick up
 SKENG`Knife| blade| Gun| firearm
 DDR`Dance Dance Revolution (Game)
