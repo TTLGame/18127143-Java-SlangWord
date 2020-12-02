@@ -554,7 +554,7 @@ public class source {
 
         // button6 ------------------------------------------
         button_6.addActionListener(new ActionListener() {
-            JFrame frame = new JFrame("Edit a Slang-word");
+            JFrame frame = new JFrame("Delete a Slang-word");
             JTextField input_1 = new JTextField();
 
             public void actionPerformed(ActionEvent e) {
@@ -572,7 +572,7 @@ public class source {
 
                 input_1.setBounds(120, 120, 300, 30);
 
-                title.setText("Edit a Slang-word");
+                title.setText("Delete a Slang-word");
                 title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));// font size
                 title.setForeground(Color.BLACK);// font color
                 title.setBounds(80, 0, 400, 100);
@@ -824,7 +824,7 @@ public class source {
             String[] choice = new String[4];
             int pos;
             Random random = new Random();
-            JFrame frame = new JFrame("Quiz by Slang-word");
+            JFrame frame = new JFrame("Quiz by Definition");
             JTextArea question = new JTextArea();
             JButton ans_0 = new JButton();
             JButton ans_1 = new JButton();
@@ -1028,6 +1028,7 @@ public class source {
             }
         }
     }
+    
 
     // readFile
     public static void read_File(Slang slang_word, String file_name) {
